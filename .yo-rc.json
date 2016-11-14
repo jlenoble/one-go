@@ -1,0 +1,13 @@
+{
+  "generator-wupjs": {
+    "module": "one-go",
+    "description": "Deal with a set of objects in one go!",
+    "author": "Jason Lenoble",
+    "email": "jason.lenoble@gmail.com",
+    "github": "jlenoble",
+    "license": "MIT",
+    "transpile": "es2015",
+    "addons": [],
+    "Class": "OneGo"
+  }
+}
