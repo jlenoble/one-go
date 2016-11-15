@@ -9,7 +9,6 @@ export const ogArgs = function (...args) {
 };
 
 const OneGo = function (Class, options = {}) {
-
   function makeList (Class, options) {
     let List;
 
