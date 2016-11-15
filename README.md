@@ -87,6 +87,81 @@ list.add(ogArgs(1, 2, 3, 4);
 list.get(); // Returns [2, 36, 6.1415926..., 103.9]
 ```
 
+## Options
+
+### Option 'arrayInit'
+
+Sometimes it's just easier to pass an array of arguments rather than arguments directly. By setting this option to ```true```, the generated function List will expect an array instead of a sequence of arguments.
+
+```js
+import OneGo from 'one-go';
+
+class Float {
+  constructor(number) {this.value = number;}
+  add(number) {this.value += number;}
+  get() {return this.value;}
+}
+
+const List1 = OneGo(Float); // option 'arrayInit' not set
+const list1 = new List1(1, 34, Math.PI, 99.9); // sequence of arguments
+
+const List2 = OneGo(Float, {arrayInit: true}); // option 'arrayInit' set
+const list2 = new List2([1, 34, Math.PI, 99.9]); // array of arguments
+```
+
+### Option 'override'
+
+By default, the generated List shares its API with the underlying Type, simply looping over the list elements and applying the method of the same name. If you want a different behavior for a specific method, override it using the 'override' option.
+
+```js
+import OneGo from 'one-go';
+
+class Float {
+  constructor(number) {this.value = number;}
+  add(number) {this.value += number;}
+  get() {return this.value;}
+}
+
+const List = OneGo(Float, {
+  override: {
+    get() {
+      return this.elements.reduce((el1, el2) => {
+        if (el1.value) {
+          el1 = el1.value;
+        }
+        return el1 + el2.value;
+      });
+    }
+  }
+});
+const list = new List(1, 34, 99.9);
+list.get(); // Returns 134.9... and not [1, 34, 99.9]
+```
+
+### Option 'parallel'
+
+You may not want to override a generated List method, but the underlying Type original method. Use the 'parallel' option for that.
+
+```js
+import OneGo from 'one-go';
+
+class Float {
+  constructor(number) {this.value = number;}
+  add(number) {this.value += number;}
+  get() {return this.value;}
+}
+
+const List = OneGo(Float, {
+  parallel: {
+    get() {
+      return 'value: ' + this.value;
+    }
+  }
+});
+const list= new List(1, 34, 99.9);
+list.get(); // Returns ['value: 1', 'value: 34', 'value: 99.9']
+// and not [1, 34, 99.9]
+
 ## License
 
 one-go is [MIT licensed](./LICENSE).
