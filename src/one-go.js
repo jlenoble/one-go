@@ -45,6 +45,8 @@ const OneGo = function (Class) {
 
       List.prototype[prop] = function (args0, ...args) {
 
+        let results;
+
         if (args0 instanceof OG) {
 
           const argsi = args0.args;
@@ -56,12 +58,26 @@ const OneGo = function (Class) {
 
           }
 
-          return this.elements.map((element, ith) => element[prop](
+          results = this.elements.map((element, ith) => element[prop](
             ...argsi[ith]));
+
+        } else {
+
+          results = this.elements.map(element => element[prop](args0,
+            ...args));
 
         }
 
-        return this.elements.map(element => element[prop](args0, ...args));
+        for (let nth = 0, len = results.length; nth < len; nth++) {
+          // Don't return things like [undefined, undefined, undefined]
+
+          if (results[nth] !== undefined) {
+            // ...So return only if at least one element is not undefined
+            return results;
+
+          }
+
+        }
 
       };
 
