@@ -2,13 +2,13 @@ class OG {
 
   constructor (args) {
 
-    this.args = args;
+    this.args = args.map(arg => Array.isArray(arg) ? arg : [arg]);
 
   }
 
 }
 
-export const ogArgs = function (args) {
+export const ogArgs = function (...args) {
 
   return new OG(args);
 
@@ -17,7 +17,7 @@ export const ogArgs = function (args) {
 const OneGo = function (Class) {
 
   const proto = Class.prototype;
-  const List = function (args) {
+  const List = function (...args) {
 
     this.elements = args.map(arg => {
 
@@ -27,7 +27,13 @@ const OneGo = function (Class) {
 
       }
 
-      return new Class(...arg);
+      if (Array.isArray(arg)) {
+
+        return new Class(...arg);
+
+      }
+
+      return new Class(arg);
 
     });
 
