@@ -8,7 +8,7 @@
   },
   "plugins": [],
   "extends": [
-    "eslint:all"
+    "google"
   ],
   "env": {
     "es6": true
@@ -19,6 +19,8 @@
     "indent": ["error", 2],
     "no-param-reassign": ["error", {"props": true}],
     "one-var": ["error", "never"],
-    "quotes": ["error", "single", {"allowTemplateLiterals": true}]
+    "quotes": ["error", "single", {"allowTemplateLiterals": true}],
+    "require-jsdoc": ["off"],
+    "space-before-function-paren": ["error", "always"]
   }
 }
