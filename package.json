@@ -1,6 +1,6 @@
 {
   "name": "one-go",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deal with a set of objects in one go!",
   "main": "lib/one-go.js",
   "scripts": {
