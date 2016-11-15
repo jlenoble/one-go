@@ -16,6 +16,7 @@ describe('Testing OneGo', function() {
 
         getName() {return this.name;}
         setName(name) {this.name = name;}
+        setFullName(firstName, lastName) {this.name = firstName + lastName;}
         print() {console.log(this.name);}
 
       };
@@ -91,6 +92,21 @@ describe('Testing OneGo', function() {
         ['Hhh']
       ]))).to.throw(Error,
         `Number of elements in list and number of args don't match`);
+
+    }));
+
+    it(`Testing list.setFullName(ogArgs([firstNames, lastNames]))`,
+      muted(muter, function() {
+
+      this.list.setFullName(ogArgs([
+        ['Eee', 'Ee'],
+        ['Fff', 'Ff'],
+        ['Ggg', 'Gg']
+      ]));
+      expect(this.list.getName()).to.eql(['EeeEe', 'FffFf', 'GggGg']);
+
+      this.list.print();
+      expect(muter.getLogs()).to.equal('EeeEe\nFffFf\nGggGg\n');
 
     }));
 
