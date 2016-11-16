@@ -14,7 +14,19 @@ const _elements = Symbol();
 const OneGo = function (Class, options = {}) {
   function makeList (Class, options) {
     let List;
-    const init = function (args) {
+
+    if (options.arrayInit) {
+      List = function (args) {
+        this[_init](args);
+      };
+    } else {
+      List = function (...args) {
+        this[_init](args);
+      };
+    }
+
+    List.prototype[_init] = function (args) {
+      // Use a symbol so it won't be overridden
       this[_elements] = args.map(arg => {
         if (arg instanceof Class) {
           return arg;
@@ -29,22 +41,12 @@ const OneGo = function (Class, options = {}) {
 
       Object.defineProperties(this, {
         elements: {
-          get() {return [...this[_elements]];}
-        }
-      })
+          get () {
+            return [...this[_elements]];
+          },
+        },
+      });
     };
-
-    if (options.arrayInit) {
-      List = function (args) {
-        this[_init](args);
-      };
-    } else {
-      List = function (...args) {
-        this[_init](args);
-      };
-    }
-
-    List.prototype[_init] = init; // Use a symbol so it won't be overridden
 
     let proto = {};
 
