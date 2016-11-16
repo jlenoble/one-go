@@ -26,6 +26,12 @@ const OneGo = function (Class, options = {}) {
 
         return new Class(arg);
       });
+
+      Object.defineProperties(this, {
+        elements: {
+          get() {return [...this[_elements]];}
+        }
+      })
     };
 
     if (options.arrayInit) {
