@@ -161,6 +161,7 @@ const List = OneGo(Float, {
 const list= new List(1, 34, 99.9);
 list.get(); // Returns ['value: 1', 'value: 34', 'value: 99.9']
 // and not [1, 34, 99.9]
+```
 
 ## License
 
